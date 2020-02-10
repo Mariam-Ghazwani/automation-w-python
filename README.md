@@ -1,2 +1,2 @@
 # Automation with Python
-Notes on code for Google IT Automation with Python Professional Certificate course
+Notes & Pyhon code examples for Google IT Automation with Python Professional Certificate course
