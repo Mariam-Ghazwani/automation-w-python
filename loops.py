@@ -82,3 +82,9 @@ def factorial(n):
 
 print(factorial(4)) # should return 24
 print(factorial(5)) # should return 120
+
+# example w/for loop 2
+teams = [ 'Dragons', 'Wolves', 'Pandas', 'Unicorns']
+for home_team in teams:
+    for away_team in teams:
+      if home_team != away_team:
