@@ -88,3 +88,26 @@ teams = [ 'Dragons', 'Wolves', 'Pandas', 'Unicorns']
 for home_team in teams:
     for away_team in teams:
       if home_team != away_team:
+
+
+# example w/for loop 3 
+# iterate through the list
+def validate_users(users):
+  for user in [users]:
+    if len((user)) >= 3:
+      print(user + " is valid")
+    else:
+      print(user + " is invalid")
+
+validate_users("purplecat")    
+
+# example w/for loop 4
+def retry(operation, attempts):
+  for n in range(attempts):
+    if operation():
+      print("Attempt " + str(n) + " succeeded")
+      break
+    else:
+      print("Attempt " + str(n) + " failed")
+retry(create_user, 3)
+retry(stop_service, 5)
