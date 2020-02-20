@@ -20,11 +20,11 @@ def replace_domain(email, old_domain, new_domain):
   return email
 
 def initials(phrase):
-    words = phrase.upper
+    words = phrase.split()
     result = ""
     for word in words:
-        result += ___
-    return ___
+        result += word[0]
+    return result.upper()
 
 print(initials("Universal Serial Bus")) # Should be: USB
 print(initials("local area network")) # Should be: LAN
