@@ -21,3 +21,24 @@ fruits.remove("Melon")
 fruits.pop(3)
 # to modify/change/replace the element in the list
 fruits[2] = "Strawberry"
+
+# List Comprehensions - let us create new lists based on swquences or ranges
+multiples = [ x*7 for x in range(1,11)]
+print(multiples)
+
+#
+languages = ["Python", "Perl", "Ruby", "Go", "Java", "C"]
+lengths = [len(language) for language in languages]
+print (lenghts)
+
+z = [x for x in range(0,101) if x % 3 == 0]
+print(z)
+
+# return every other element from the list, this time using a list comprehension to generate the new list
+# based on the previous one, where elements in odd positions are skipped.
+
+def skip_elements(elements):
+	return [ element for element in elements if index % 2 == 0]  
+
+print(skip_elements(["a", "b", "c", "d", "e", "f", "g"])) # Should be ['a', 'c', 'e', 'g']
+print(skip_elements(['Orange', 'Pineapple', 'Strawberry', 'Kiwi', 'Peach'])) # Should be ['Orange', 'Strawberry', 'Peach']
