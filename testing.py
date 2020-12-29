@@ -19,11 +19,11 @@ def contents_of_file(filename):
   create_file(filename)
 
   # Open the file
-  with open(filename) as file:
+  ___
     # Read the rows of the file into a dictionary
-    reader = csv.DictReader(file)
+    ___
     # Process each item of the dictionary
-    for row in reader:
+    for ___:
       return_string += "a {} {} is {}\n".format(row["color"], row["name"], row["type"])
   return return_string
 

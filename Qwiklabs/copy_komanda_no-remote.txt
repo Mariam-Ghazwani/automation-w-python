@@ -1,0 +1,6 @@
+
+Use this command to copy source files from qwicklabs VM to your local machine:
+
+ASSERTOLDTWICE:~ elina.dimante$ scp -i ~/Downloads/qwikLABS-L2383-23111982.pem student-03-4bdd860d161d@34.121.56.210:scripts/generate_report.py Projects/automation-w-python/Qwiklabs/Handling\ Files/
+
+scp -i ~/Downloads/qwikLABS-L2383-23111982.pem student-03-4bdd860d161d@34.121.56.210:scripts/generate_report.py <lokālā direktorija>
