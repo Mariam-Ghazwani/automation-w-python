@@ -130,5 +130,136 @@ A: input performs basic math operations -  In Python 2, input evaluates the user
 raw_input gets a string from the user.
 '''
 
+# Running System Commands in Python
+
+import subprocess
+subprocess.run(["date"])
+
+'''
+A system command that sends ICMP packets can be executed within a script by using which of the following?
+
+subprocess.run
+''''
+
+# Obtaining the Output of a System Command
+
+>>> result = subprocess.run(["host", "8.8.8.8"], capture_output=True)
+>>> print(result.returncode)
+0
+>>> print(result.stdout)
+b'8.8.8.8.in-addr.arpa domain name pointer dns.google.\n'' # b stands for array of bytes
+>>> print(result.stdout.decode().split()) # This method applies an encoding to transform 
+# the bytes into a string. By default, it uses a UTF-8 encoding which is what we want. So 
+# with all that said, let's transform our array of bytes into a string and then split it into several pieces.
+['8.8.8.8.in-addr.arpa', 'domain', 'name', 'pointer', 'dns.google.']
+
+'''
+So we just looked at the captured standard output. But what about standard error? 
+If we use the capture output parameter and the command writes any output to 
+standard error, it will be stored in the std or attribute of the completed process 
+instance.
+'''
+
+>>> result = subprocess.run(["rm", "does_not_exist"], capture_output=True)
+>>> print(result.returncode)
+1
+>>> print(result.stdout)
+b'' # empty
+>>> print(result.stderr)
+
+# Advanced Subprocess Management
+
+import os
+import subprocess
+
+''''
+So in this code, we start by calling the copy method of the OS environ dictionary 
+that contains the current environment variables.
+Calling 'copy' method of the os.environ dictionary will copy the current environment 
+variables to store and prepare a new environment.
+''''
+
+my_env = os.environ.copy()
+
+'''
+This creates a new dictionary that we can change as needed without modifying 
+the original environment. The change that we're doing in this script is adding 
+one extra directory to the path variable.
+'''
+
+my_env["PATH"] = os.pathsep.join(["/opt/myapp/", my_env["PATH"]])
+
+result = subprocess.run(["myapp"], env=my_env)
+
+'''
+If we're automating a one-off, well-defined task, we're developing a solution 
+quickly is the biggest requirement, then using system commands and subprocesses can help a lot.
+'''
+
+'''
+QUIZ:
+Question 1
+What type of object does a run function return?
+A: CompletedProcess. This object includes information related to the execution of a command.
+
+Question 2
+How can you change the current working directory where a command will be executed?
+A: Use the cwd parameter. This will change the current working directory where the command will be executed.
+
+Question 3
+When a child process is run using the subprocess module, which of the following are true? (check all that apply)
+A: 
+- The child process is run in a secondary environment. To run the external command, a secondary environment is created for the child subprocess, where the command is executed.
+- The parent process is blocked while the child process finishes. While the parent process is waiting on the subprocess to finish, it’s blocked, meaning the parent can’t do any work until the child finishes.
+- Control is returned to the parent process when the child process ends. After the external command completes its work, the child process exits, and the flow of control returns to the parent.
+
+Question 4
+When using the run command of the subprocess module, what parameter, when set to True, allows us to store the output of a system command?
+A: capture_output. The capture_output parameter allows us to get and store the output of the system command we're using.
+
+Question 5
+What does the copy method of os.environ do?
+A: Creates a new dictionary of environment variables. The copy method of os.environ makes a new copy of the dictionary containing the environment variables, making modification easier.
+'''
+
+# What are log files?
+#!/usr/bin/env python3
+import sys
+import re
+
+logfile = sys.argv[1]
+usernames = {}
+with open(logfile) as f:
+    for line in f:
+        if "CRON" not in line:
+            continue
+        pattern = r"USER \((\w+)\)$"
+        result = re.search(pattern, line)
+        if result is None:
+            continue
+        name = result[1]
+        usernames[name] = usernames.get(name, 0) + 1
+print(usernames)
 
 
+import re
+def show_time_of_pid(line):
+  pattern = r"^([A-Z][a-z]+\s\d+\s\d+:\d+:\d+).*\[(\d+)\]"
+  result = re.search(pattern, line)
+  return "{} pid:{}".format(result[1], result[2])
+
+print(show_time_of_pid("Jul 6 14:01:23 computer.name CRON[29440]: USER (good_user)")) # Jul 6 14:01:23 pid:29440
+print(show_time_of_pid("Jul 6 14:02:08 computer.name jam_tag=psim[29187]: (UUID:006)")) # Jul 6 14:02:08 pid:29187
+print(show_time_of_pid("Jul 6 14:02:09 computer.name jam_tag=psim[29187]: (UUID:007)")) # Jul 6 14:02:09 pid:29187
+print(show_time_of_pid("Jul 6 14:03:01 computer.name CRON[29440]: USER (naughty_user)")) # Jul 6 14:03:01 pid:29440
+print(show_time_of_pid("Jul 6 14:03:40 computer.name cacheclient[29807]: start syncing from \"0xDEADBEEF\"")) # Jul 6 14:03:40 pid:29807
+print(show_time_of_pid("Jul 6 14:04:01 computer.name CRON[29440]: USER (naughty_user)")) # Jul 6 14:04:01 pid:29440
+print(show_time_of_pid("Jul 6 14:05:01 computer.name CRON[29440]: USER (naughty_user)")) # Jul 6 14:05:01 pid:29440
+
+
+# Making Sense out of the Data
+
+usernames = {}
+name = "good_user"
+usernames[name] = usernames.get(name, 0) + 1
+print (usernames)
